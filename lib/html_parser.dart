@@ -267,27 +267,21 @@ class HtmlParser extends StatelessWidget {
           style: tree.style,
           shrinkWrap: context.parser.shrinkWrap,
           child: Stack(
-            children: [
-              if (tree.style?.listStylePosition == ListStylePosition.OUTSIDE || tree.style?.listStylePosition == null)
-                PositionedDirectional(
-                  width: 30, //TODO derive this from list padding.
-                  start: 0,
-                  child: Text('${newContext.style.markerContent}\t',
-                      textAlign: TextAlign.right,
-                      style: newContext.style.generateTextStyle()),
+            children: <Widget>[
+              PositionedDirectional(
+                start: 0,
+                child: Text(newContext.style.markerContent,
+                  textAlign: TextAlign.right,
+                  style: newContext.style.generateTextStyle(),
                 ),
+              ),
               Padding(
-                padding: EdgeInsetsDirectional.only(
-                    start: 30), //TODO derive this from list padding.
+                padding: EdgeInsets.only(left: 24), //TODO derive this from list padding.
                 child: StyledText(
                   textSpan: TextSpan(
-                    text: (tree.style?.listStylePosition ==
-                            ListStylePosition.INSIDE)
-                        ? '${newContext.style.markerContent}\t'
-                        : null,
                     children: tree.children
-                            ?.map((tree) => parseTree(newContext, tree))
-                            ?.toList() ??
+                        ?.map((tree) => parseTree(newContext, tree))
+                        ?.toList() ??
                         [],
                     style: newContext.style.generateTextStyle(),
                   ),
